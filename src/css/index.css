@@ -1,0 +1,236 @@
+.landing {
+  display: flex;
+  position: relative;
+  align-items: center;
+  justify-content: space-between;
+  column-gap: 4rem;
+}
+
+.landing aside {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  padding-top: calc(var(--nav-top-distance));
+}
+
+.landing__primary-side {
+  background-color: var(--main-color-light);
+  padding-left: var(--side-distance);
+  height: 100vh;
+  padding-right: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.landing__secondary-side {
+  text-align: right;
+  padding-right: var(--side-distance);
+}
+
+.landing h1 {
+  margin-top: 0;
+  font-size: var(--font-very-large);
+  margin-bottom: 10px;
+  color: var(--main-color-dark);
+}
+
+.landing p {
+  max-width: 40rem;
+  color: var(--main-color-dark);
+  font-family: var(--font-secondary);
+  text-align: justify;
+}
+
+.call-to-action {
+  font-weight: bold;
+  margin-top: 2rem;
+}
+
+.check-out-shop {
+  padding: var(--section-gap-space) 0;
+  overflow: hidden;
+}
+
+.check-out-shop > h1,
+.check-out-shop > p {
+  padding: 0 var(--side-distance) !important;
+}
+.check-out-shop > h1 {
+  font-size: var(--font-large);
+  margin-bottom: 0;
+}
+
+.check-out-shop__books {
+  padding-top: 3rem;
+  position: relative;
+  display: flex;
+  column-gap: 2rem;
+}
+
+.check-out-shop__book-band {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  left: calc(-1 * var(--side-distance));
+  width: calc(100% + var(--side-distance) * 2);
+  height: 100px;
+  background-color: var(--main-color-light);
+  z-index: -1;
+}
+
+.stats {
+  margin-top: var(--section-gap-space);
+  padding: 0 var(--side-distance);
+}
+
+.stats > h1 {
+  font-size: var(--font-large);
+  margin: 0;
+}
+
+.stats__info {
+  display: flex;
+  margin-top: 5rem;
+}
+
+.stats__stat {
+  width: 100%;
+  height: 100%;
+  padding: 5rem;
+}
+
+.stats__stat h1 {
+  font-size: var(--font-large);
+}
+
+.stats__stat:nth-of-type(1) {
+  background-color: var(--main-color-light);
+}
+
+.stats__stat:nth-of-type(2) {
+  background-color: var(--main-color);
+}
+
+.stats__stat:nth-of-type(3) {
+  background-color: var(--main-color-dark);
+}
+
+.stats__stat:nth-of-type(3) > * {
+  color: var(--main-color-lighter);
+}
+
+.reviews {
+  background-color: var(--main-color-light);
+  padding: 3rem 1rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+  margin-top: var(--section-gap-space);
+}
+
+.reviews__overlay {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.03);
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: translateY(-100%);
+  z-index: -1;
+}
+
+.reviews__client-review {
+  margin-top: 3rem;
+  width: 100%;
+}
+
+@keyframes slideIn {
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut {
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+.reviews__client-image {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
+
+.reviews__client-name {
+  margin-bottom: 0;
+}
+
+.reviews__client-reviews {
+  display: grid;
+  grid-template-columns: repeat(4, 100%);
+  overflow: hidden;
+}
+
+.reviews__timer-pill {
+  margin: auto;
+  width: 60px;
+  height: 10px;
+  background-color: rgba(0, 0, 0, 0.3);
+  border-radius: 50px;
+  margin-top: 2rem;
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.reviews__timer-pill-overlay {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.6);
+  border-radius: 50px;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  transform: translateX(-100%);
+}
+
+/* media queries */
+
+@media screen and (max-width: 742px) {
+  .landing {
+    padding: 50vh 10vw 30vh;
+  }
+
+  .landing h1 {
+    font-size: var(--font-large);
+  }
+
+  .landing p {
+    font-size: calc(var(--font-medium) / 1.5);
+  }
+}
+
+.get-in-touch {
+  text-align: center;
+  padding: 10vh var(--side-distance);
+  margin-top: var(--section-gap-space);
+}
+
+.gmap_canvas {
+  overflow: hidden;
+  background: none !important;
+  margin: auto;
+  width: 100%;
+  height: 30%;
+  box-shadow: var(--main-shadow);
+  border-radius: 20px;
+  margin-top: 5rem;
+}
+
+.gmap_canvas iframe {
+  width: 100%;
+  border: none;
+}

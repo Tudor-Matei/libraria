@@ -1,0 +1,373 @@
+:root {
+  --transparent-white: rgba(255, 255, 255, 0.1);
+  --main-gray: #262626;
+
+  --main-color-lighter: #fed7cc;
+  --main-color-light: #faaf9c;
+  --main-color-dark: #4e1e03;
+  --main-color: #f76c31;
+  --invalid-color: #eb5757;
+  --success-color: #00b512;
+
+  --main-shadow: 0 22px 22px rgba(0, 0, 0, 0.2);
+
+  --nav-top-distance: calc(5vh + 40px);
+  --side-distance: 8vw;
+  --section-gap-space: 30vh;
+
+  --font-very-large: 6rem;
+  --font-large: 3rem;
+  --font-medium: 1.5rem;
+  --font-small: 0.8rem;
+
+  --font-primary: "Bodoni Moda", "Times New Roman", Times, serif;
+  --font-secondary: "Playfair Display", "Times New Roman", Times, serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: #f7e3df;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-primary);
+  color: var(--main-gray);
+}
+
+a,
+p,
+button,
+input,
+label,
+select,
+span,
+table {
+  font-family: var(--font-secondary);
+  color: var(--main-gray);
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+button:disabled:hover {
+  transform: none;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover,
+a:active,
+a:visited {
+  color: unset;
+}
+
+button:active {
+  transform: translateY(3px);
+}
+
+.back-button {
+  cursor: pointer;
+  border-radius: 50%;
+  padding: 1rem;
+  transition: background-color 300ms linear;
+  background-color: transparent;
+}
+
+.back-button:hover {
+  background-color: var(--main-color-light);
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: var(--nav-top-distance) var(--side-distance);
+  transition: padding-top 300ms ease, padding-bottom 300ms ease, backdrop-filter 300ms ease, background-color 300ms ease;
+  z-index: 100;
+}
+
+.navbar-delimiter {
+  height: var(--nav-top-distance);
+}
+
+nav #cart {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  padding: 7px;
+}
+
+.nav__buttons {
+  display: flex;
+  align-items: center;
+  column-gap: 2rem;
+}
+
+.nav--scrolling {
+  padding: 3vh var(--side-distance);
+  backdrop-filter: blur(20px);
+  background-color: var(--transparent-white);
+}
+
+.nav--scrolling::after {
+  width: 100%;
+}
+
+nav::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  top: 100%;
+  margin: auto;
+  width: calc(100% - var(--side-distance) * 2);
+  height: 2px;
+}
+
+.nav__libraria-logo {
+  width: 50px;
+  height: 50px;
+  background-color: var(--main-color-light);
+  border-radius: 50%;
+  margin: 0;
+}
+
+button {
+  border-radius: 20px;
+  border: none;
+  outline: none;
+  padding: 12px 50px;
+}
+
+.default-button {
+  border: 2px solid var(--main-gray);
+  font-weight: 300;
+  transform: translateY(0px);
+  transition: color 300ms linear, border-color 300ms linear;
+  background-color: transparent;
+}
+
+.default-button:hover {
+  border-color: var(--main-color);
+  color: var(--main-color-dark);
+}
+
+.primary-button {
+  font-weight: bold;
+  background-color: var(--main-color);
+  color: var(--main-color-dark);
+  fill: var(--main-color-dark);
+  border: 0.4vh solid black;
+  transition: color 500ms linear, background-color 500ms linear, border-color 500ms linear;
+}
+
+.primary-button:hover {
+  color: var(--main-color);
+  fill: var(--main-color);
+  background-color: var(--main-color-dark);
+  border-color: var(--main-color);
+}
+
+.available-quizzes img {
+  margin-left: 10px;
+}
+
+.invalid-field-indicator {
+  color: var(--invalid-color);
+  font-size: 0.7rem;
+  font-weight: bold;
+}
+
+.input--error {
+  border-bottom-color: var(--invalid-color);
+  border-image-source: none !important;
+}
+
+footer {
+  background-color: var(--main-color-dark);
+  padding: 1rem var(--side-distance);
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+  margin-top: var(--section-gap-space);
+}
+
+footer .default-button {
+  border: 2px solid var(--main-color);
+  color: var(--main-color-lighter);
+  transition: background-color 500ms linear, color 500ms linear, border-color 500ms linear;
+}
+
+footer .default-button:hover {
+  background-color: var(--main-color-light);
+  color: var(--main-color-dark);
+  border-color: var(--main-color-lighter);
+}
+
+.footer__main-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer__visit-shop {
+  justify-self: flex-end;
+}
+
+.footer__visit-shop button {
+  transition: color 500ms linear, background-color 500ms linear, border-color 500ms linear;
+  display: block;
+  border-color: transparent;
+}
+
+.footer__visit-shop button:hover {
+  background-color: var(--main-color-light);
+  color: var(--main-color-dark);
+  border-color: var(--main-color-lighter);
+}
+
+.footer__libraria h1 {
+  color: var(--main-color-lighter);
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.footer__libraria img {
+  background-color: var(--main-color-light);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  vertical-align: middle;
+  display: inline-block;
+  margin-right: 10px;
+}
+
+.footer__catchy-phrase {
+  color: var(--main-color-light);
+  margin-bottom: 0;
+}
+
+.footer__copyright-statement {
+  text-align: center;
+  color: var(--main-color);
+  margin-top: 2rem;
+}
+
+.book {
+  padding: 2rem;
+  border-radius: 20px;
+  background-color: var(--main-color-lighter);
+  box-shadow: var(--main-shadow);
+  flex: 1;
+  min-width: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+.book__name {
+  margin-bottom: 0;
+}
+
+.book__author {
+  margin-top: 0;
+}
+
+.book__name,
+.book__author {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-align: center;
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 0;
+  max-width: 100%;
+  cursor: help;
+}
+
+.book__quantity,
+.book__price {
+  display: inline;
+  padding: 0;
+}
+
+.book__genre-pill {
+  background-color: var(--main-color-dark);
+  color: var(--main-color-light);
+  text-align: center;
+  width: 100%;
+  border-radius: 20px;
+  padding: 2px 10px;
+  font-family: var(--font-secondary);
+  word-break: break-all;
+}
+
+.book__add-to-cart {
+  width: 100%;
+}
+
+img {
+  max-height: 300px;
+  margin: 0 auto;
+}
+
+.book__quantity-price-separator {
+  margin: 0 5px;
+  display: inline;
+  padding: 0;
+}
+
+.book__quantity-price-container {
+  margin: 0.6rem 0;
+  text-align: center;
+}
+
+.book__price strong {
+  font-size: calc(var(--font-medium) - 0.2rem);
+}
+
+/* media queries */
+
+@media screen and (max-width: 742px) {
+  nav {
+    flex-direction: column;
+    row-gap: 2rem;
+  }
+}

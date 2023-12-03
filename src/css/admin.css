@@ -1,0 +1,43 @@
+.admin-panel-header {
+  width: 100%;
+  padding: 1rem var(--side-distance);
+  position: relative;
+  background-color: var(--main-color-lighter);
+  display: flex;
+  align-items: center;
+  column-gap: 1rem;
+}
+
+.admin-panel-header::before,
+.admin-panel-header::after {
+  content: "";
+  position: absolute;
+  height: 100%;
+  top: 0;
+  right: 0;
+}
+
+.admin-panel-header::before {
+  background-color: var(--main-color-light);
+  width: 40%;
+}
+
+.admin-panel-header::after {
+  background-color: var(--main-color);
+  width: 10%;
+}
+
+.admin-panel {
+  padding: 5rem;
+  text-align: center;
+}
+
+.actions__action {
+  padding: 5rem;
+  border-radius: 50px;
+  margin: 1rem;
+}
+
+.admin-panel .form-container {
+  min-height: auto;
+}
