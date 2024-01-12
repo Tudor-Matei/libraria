@@ -44,6 +44,7 @@ export default function Signin() {
             formik.setSubmitting(false);
             return;
           }
+
           if (jsonResponse.error !== null && jsonResponse.data === undefined) {
             alert(jsonResponse.error);
             formik.setSubmitting(false);

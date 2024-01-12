@@ -36,9 +36,11 @@ export default function SignedInNavbar() {
             </button>
           </Link>
         )}
-        <Link to="/profile">
-          <button className="primary-button">My Account</button>
-        </Link>
+        {pathname !== "/profile" && (
+          <Link to="/profile">
+            <button className="primary-button">My Account</button>
+          </Link>
+        )}
         <Link to="/cart">
           <button className="primary-button" id="cart">
             <svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

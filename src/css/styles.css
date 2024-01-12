@@ -9,9 +9,12 @@
   --invalid-color: #eb5757;
   --success-color: #00b512;
 
+  --body-color: #f7e3df;
+
   --main-shadow: 0 22px 22px rgba(0, 0, 0, 0.2);
 
   --nav-top-distance: calc(5vh + 40px);
+  --nav-height: 90px;
   --side-distance: 8vw;
   --section-gap-space: 30vh;
 
@@ -39,7 +42,7 @@ body {
 }
 
 body {
-  background-color: #f7e3df;
+  background-color: var(--body-color);
 }
 
 h1,
@@ -118,7 +121,8 @@ nav {
   top: 0;
   left: 0;
   width: 100%;
-  padding: var(--nav-top-distance) var(--side-distance);
+  height: 90px;
+  padding: 3vh var(--side-distance);
   transition: padding-top 300ms ease, padding-bottom 300ms ease, backdrop-filter 300ms ease, background-color 300ms ease;
   z-index: 100;
 }
@@ -141,7 +145,6 @@ nav #cart {
 }
 
 .nav--scrolling {
-  padding: 3vh var(--side-distance);
   backdrop-filter: blur(20px);
   background-color: var(--transparent-white);
 }

@@ -89,12 +89,10 @@ if (floatval($price) == 0 && $price != "0") {
   die();
 }
 
-// TODO: fix published_at in database
-
 $price = floatval($price);
 
 $author = $author == "" ? null : $author;
-$published_at = strtotime($published_at);
+
 $relative_image_file_path = "src/assets/cdn/$isbn.jpg";
 
 if (!$published_at)
@@ -103,7 +101,7 @@ if (!$published_at)
 $insert_book_query = "INSERT INTO books (isbn, name, author, genre, published_at, pages, quantity, price, image) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 $statement = mysqli_prepare($connection, $insert_book_query);
 
-if (!mysqli_stmt_bind_param($statement, "ssssiiids", $isbn, $name, $author, $genre, $published_at, $pages, $quantity, $price, $relative_image_file_path)) {
+if (!mysqli_stmt_bind_param($statement, "sssssiids", $isbn, $name, $author, $genre, $published_at, $pages, $quantity, $price, $relative_image_file_path)) {
   http_response_code(500);
   echo json_encode(["error" => "There has been an error binding parameters to the query."]);
   die();

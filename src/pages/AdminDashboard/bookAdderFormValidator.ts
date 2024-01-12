@@ -19,7 +19,8 @@ export default function bookAdderFormValidator({
     image?: string;
   } = {};
 
-  if (!/(978|979)-[0-9]{10}/.test(isbn.trim())) errors.isbn = "The format of an ISBN is (978/979)-(10 digits).";
+  if (isbn.trim().length !== 14 || !/(978|979)-[0-9]{10}/.test(isbn.trim()))
+    errors.isbn = "The format of an ISBN is (978/979)-(10 digits).";
 
   if (name.trim() === "") errors.name = "The book name is missing.";
 

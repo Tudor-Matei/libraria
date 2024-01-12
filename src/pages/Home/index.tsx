@@ -6,11 +6,13 @@ import Navbar from "../../components/Navbar";
 import "../../css/index.css";
 import useRedirectOnAuth from "../../hooks/useRedirectOnAuth";
 import BookDataType from "../../utils/BookDataType";
+import StatsDataType from "../../utils/StatsDataType";
 import Reviews from "./Reviews";
 
 export default function Home() {
   const isLoggedIn = useRedirectOnAuth("/shop", true);
   const [bookData, setBookData] = useState<BookDataType[]>([]);
+  const [statsData, setStatsData] = useState<StatsDataType>({ bookCount: 0, genreCount: 0, transactionCount: 0 });
 
   useEffect(() => {
     fetch("http://localhost/libraria/php/get-books.php", {
@@ -32,6 +34,22 @@ export default function Home() {
       })
       .catch((error) => {
         alert("An unexpected error has occured whilst retrieving books from the database.");
+        console.error(error);
+      });
+
+    fetch("http://localhost/libraria/php/get-stats.php")
+      .then((response) => response.json())
+      .then((statsDataResponse: { error: string | null; data: StatsDataType }) => {
+        console.log(statsDataResponse);
+        if (statsDataResponse.error !== null) {
+          alert(statsDataResponse.error);
+          return;
+        }
+
+        setStatsData(statsDataResponse.data);
+      })
+      .catch((error) => {
+        alert("An unexpected error has occured whilst retrieving stats from the database.");
         console.error(error);
       });
   }, []);
@@ -61,13 +79,19 @@ export default function Home() {
 
       <section className="check-out-shop">
         <h1>Check out some of the books we have</h1>
-        <p>There's plenty to choose from</p>
-        <div className="check-out-shop__books">
-          <div className="check-out-shop__book-band"></div>
-          {bookData.map((book, i) => (
-            <BookListing key={`book-${i}`} className="check-out-shop__book" {...book} />
-          ))}
-        </div>
+        {bookData.length === 0 ? (
+          <p>Please come back later. New books are going to be added.</p>
+        ) : (
+          <>
+            <p>There's plenty to choose from</p>
+            <div className="check-out-shop__books">
+              <div className="check-out-shop__book-band"></div>
+              {bookData.map((book, i) => (
+                <BookListing key={`book-${i}`} className="check-out-shop__book" {...book} />
+              ))}
+            </div>
+          </>
+        )}
       </section>
 
       <section className="stats">
@@ -75,16 +99,16 @@ export default function Home() {
         <p>Here's a bit of useful information about our online bookstore</p>
         <div className="stats__info">
           <div className="stats__stat">
-            <h1>63</h1>
-            <p>books in our store</p>
+            <h1>{statsData.bookCount}</h1>
+            <p>book{statsData.bookCount !== 1 ? "s" : ""} in our store</p>
           </div>
           <div className="stats__stat">
-            <h1>37</h1>
-            <p>different genres</p>
+            <h1>{statsData.genreCount}</h1>
+            <p>{statsData.genreCount !== 1 ? "different genres" : "genre"}</p>
           </div>
           <div className="stats__stat">
-            <h1>0</h1>
-            <p>transactions made so far</p>
+            <h1>{statsData.transactionCount}</h1>
+            <p>transaction{statsData.transactionCount !== 1 ? "s" : ""} made so far</p>
           </div>
         </div>
       </section>

@@ -43,7 +43,8 @@ export default function BookListing({
           <strong>{price}</strong> lei
         </p>
       </div>
-      <Link to={`buy/${isbn}`}>
+      {/* TODO: CartContext */}
+      <Link to={``}>
         <button className="primary-button book__add-to-cart">Add to cart</button>
       </Link>
     </div>

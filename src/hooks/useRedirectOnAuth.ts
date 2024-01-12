@@ -6,11 +6,12 @@ export interface ILoggedInDataResult {
   data: boolean;
 }
 
-export default function useRedirectOnAuth(redirectLocation: string, redirectOnLogInState: boolean) {
+export default function useRedirectOnAuth(redirectLocation: string, redirectIfLogInStateIsThis: boolean) {
   const loggedInData: ILoggedInDataResult | undefined = useLoaderData() as ILoggedInDataResult | undefined;
   useEffect(() => {
-    if (loggedInData !== undefined && loggedInData.data === redirectOnLogInState) location.pathname = redirectLocation;
-  }, [loggedInData, redirectLocation, redirectOnLogInState]);
+    if (loggedInData !== undefined && loggedInData.data === redirectIfLogInStateIsThis)
+      location.pathname = redirectLocation;
+  }, [loggedInData, redirectLocation, redirectIfLogInStateIsThis]);
 
-  return loggedInData !== undefined && loggedInData.data === redirectOnLogInState;
+  return loggedInData !== undefined && loggedInData.data === redirectIfLogInStateIsThis;
 }

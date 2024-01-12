@@ -5,12 +5,12 @@ $ADMIN_ID = 123456;
 $ADMIN_PASSWORD = "admin";
 
 $BOOKS_TABLE = "books";
-$PURCHASES_TABLE = "purchases";
+$TRANSACTIONS_TABLE = "transactions";
 $USERS_TABLE = "users";
 
 $dbhost = "localhost";
 $dbuser = "root";
-$dbpass = "";
+$dbpass = "admin";
 $dbname = "libraria";
 
 define("RANDOM_BYTES_STRING", openssl_random_pseudo_bytes(openssl_cipher_iv_length('AES-256-CBC')));

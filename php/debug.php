@@ -1,8 +1,5 @@
 <?php
+include_once "db/connect.php";
 
-include_once "utils/Key.php";
-$new_image_file_path = __DIR__ . "/../src/assets/cdn/978-1234567890";
-
-
-$result = base64_decode(str_replace(' ', '+', $result));
-echo "<div style='background-image: url(\'$result\')'></div>";
+// echo phpinfo();
+echo var_dump(mysqli_execute_query($connection, "SELECT COUNT(*) FROM books"));

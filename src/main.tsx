@@ -4,6 +4,7 @@ import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "../src/css/styles.css";
 import AdminDashboard from "./pages/AdminDashboard";
 import Home from "./pages/Home";
+import Profile from "./pages/Profile";
 import Shop from "./pages/Shop";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
@@ -17,6 +18,7 @@ const router = createBrowserRouter([
   { path: "signin", loader: authorise, element: <Signin /> },
   { path: "shop", loader: shopLoader, element: <Shop /> },
   { path: "admin", element: <AdminDashboard /> },
+  { path: "profile", loader: authorise, element: <Profile /> },
 ]);
 
 export function App() {

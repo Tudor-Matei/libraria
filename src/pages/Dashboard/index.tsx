@@ -1,18 +1,14 @@
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import SignedInNavbar from "../../components/SignedInNavbar";
 import "../../css/dashboard.css";
+import useGetDataFromLocalStorage from "../../hooks/useGetDataFromLocalStorage";
 import useRedirectOnAuth from "../../hooks/useRedirectOnAuth";
 import { UserDataContext } from "../../utils/UserDataContext";
 
 export default function Dashboard() {
   const { userData, setUserData } = useContext(UserDataContext);
   useRedirectOnAuth("/", false);
-  useEffect(() => {
-    if (userData === null) {
-      const savedData: string | null = localStorage.getItem("data");
-      setUserData(savedData === null ? null : JSON.parse(savedData));
-    }
-  }, []);
+  useGetDataFromLocalStorage(userData, setUserData);
 
   return userData === null ? null : (
     <>
