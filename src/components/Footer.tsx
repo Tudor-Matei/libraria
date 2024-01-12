@@ -17,7 +17,7 @@ export default function Footer() {
             <button className="primary-button call-to-action">Visit shop</button>
           </Link>
 
-          <Link to="/cart">
+          <Link to="/checkout">
             <button className="default-button call-to-action">Check cart</button>
           </Link>
         </div>

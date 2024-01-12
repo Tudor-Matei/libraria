@@ -8,6 +8,7 @@ import Profile from "./pages/Profile";
 import Shop from "./pages/Shop";
 import Signin from "./pages/Signin";
 import Signup from "./pages/Signup";
+import { CartContext, ICartContents } from "./utils/CartContext";
 import { IUserData, UserDataContext } from "./utils/UserDataContext";
 import authorise from "./utils/authorise";
 import shopLoader from "./utils/shopLoader";
@@ -23,11 +24,14 @@ const router = createBrowserRouter([
 
 export function App() {
   const [userData, setUserData] = useState<IUserData | null>(null);
+  const [cartContents, setCartContents] = useState<ICartContents[]>([]);
 
   return (
     <React.StrictMode>
       <UserDataContext.Provider value={{ userData, setUserData }}>
-        <RouterProvider router={router} />
+        <CartContext.Provider value={{ cartContents, setCartContents }}>
+          <RouterProvider router={router} />
+        </CartContext.Provider>
       </UserDataContext.Provider>
     </React.StrictMode>
   );

@@ -1,13 +1,18 @@
 import { useContext } from "react";
+import BookListing from "../../components/BookListing";
+import Footer from "../../components/Footer";
 import SignedInNavbar from "../../components/SignedInNavbar";
 import "../../css/profile.css";
 import useGetDataFromLocalStorage from "../../hooks/useGetDataFromLocalStorage";
 import useRedirectOnAuth from "../../hooks/useRedirectOnAuth";
+import { CartContext } from "../../utils/CartContext";
 import { UserDataContext } from "../../utils/UserDataContext";
 import ProfileStat from "./ProfileStat";
+import Transaction from "./Transaction";
 
 export default function Profile() {
   const { userData, setUserData } = useContext(UserDataContext);
+  const { cartContents } = useContext(CartContext);
   useGetDataFromLocalStorage(userData, setUserData);
   const isNotLoggedIn = useRedirectOnAuth("/signin", false);
 
@@ -15,8 +20,23 @@ export default function Profile() {
     <>
       <SignedInNavbar />
       <section className="user-profile-welcome-band">
-        <div className="welcome-band__circle">
-          <h1>Welcome, {userData?.fname}!</h1>
+        <h1>Welcome, {userData?.fname}!</h1>
+      </section>
+
+      <section className="cart-contents">
+        <h1>Here are the books that got to your cart...</h1>
+        <div className="cart-contents__book-container">
+          {cartContents.map(({ name, image, price, genre }, i) => (
+            <BookListing
+              key={`book-listing-${i}`}
+              showAddToCartButton={false}
+              className="cart-contents__book"
+              image={image}
+              name={name}
+              genre={genre}
+              price={price}
+            />
+          ))}
         </div>
       </section>
 
@@ -25,7 +45,7 @@ export default function Profile() {
 
         <div className="profile-stats__stat-container">
           <ProfileStat iconName="clock-solid" heading="0" paragraph="books bought this month" />
-          <ProfileStat iconName="book-solid" heading="5" paragraph="books bought all time" />
+          <ProfileStat iconName="book-solid" heading="5" paragraph="books bought in total" />
           <ProfileStat
             iconName="money-bill-solid"
             heading="The Vampire Diaries"
@@ -40,17 +60,40 @@ export default function Profile() {
       </section>
 
       <section className="transaction-list-container">
-        <h1>And here are all your previous transactions...</h1>
+        <h1>And here are all your previous purchases...</h1>
 
-        {/* TODO: this */}
         <div className="transaction-list-container__transaction-list">
-          <div className="transaction-list__transaction">
-            <div className="transaction__id-pill">
-              <p>#914321</p>
-            </div>
-          </div>
+          <Transaction
+            id="917342"
+            isbn="979-1234567890"
+            title="The Vampire Diaries - The fury and the dark reunion"
+            price={129.99}
+            date="2024-01-24"
+          />
+          <Transaction
+            id="917342"
+            isbn="979-1234567890"
+            title="The Vampire Diaries - The fury and the dark reunion"
+            price={129.99}
+            date="2024-01-24"
+          />
+          <Transaction
+            id="917342"
+            isbn="979-1234567890"
+            title="The Vampire Diaries - The fury and the dark reunion"
+            price={129.99}
+            date="2024-01-24"
+          />
+          <Transaction
+            id="917342"
+            isbn="979-1234567890"
+            title="The Vampire Diaries - The fury and the dark reunion"
+            price={129.99}
+            date="2024-01-24"
+          />
         </div>
       </section>
+      <Footer />
     </>
   );
 }

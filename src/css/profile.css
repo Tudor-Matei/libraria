@@ -1,11 +1,32 @@
-.user-profile-welcome-band {
+.cart-contents {
   margin-top: calc(var(--nav-height) + 8em);
   position: relative;
   padding: 1em var(--side-distance);
 }
 
+.cart-contents__book-container {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 3em;
+}
+
+.cart-contents__book {
+  width: fit-content;
+}
+
+.cart-contents__book img {
+  max-height: 200px;
+}
+
+.user-profile-welcome-band {
+  position: relative;
+  padding: 1em var(--side-distance);
+  margin-top: calc(var(--nav-top-distance) + 10em);
+}
+
 .user-profile-welcome-band h1 {
-  margin: 0;
+  margin: 0 auto;
+  max-width: 250px;
   text-align: center;
 }
 
@@ -49,7 +70,7 @@
 }
 
 .profile-stats__stat {
-  background-color: var(--main-color);
+  background-color: var(--main-color-light);
   padding: 1em;
   border-radius: 20px;
   box-shadow: var(--main-shadow);
@@ -95,5 +116,47 @@
 }
 
 .transaction-list-container {
-  padding: 8em var(--side-distance);
+  padding: 10em var(--side-distance);
+}
+
+.transaction-list-container > h1 {
+  margin-bottom: 3em;
+}
+
+.transaction-list__transaction {
+  display: flex;
+  margin-bottom: 2em;
+  box-shadow: var(--main-shadow);
+  border-radius: 100px;
+}
+
+.transaction__id-pill {
+  position: relative;
+  background-color: var(--main-color-lighter);
+  text-align: center;
+  border-top-left-radius: 100px;
+  border-bottom-left-radius: 100px;
+  padding: 1em;
+  height: 100%;
+}
+
+.transaction__details {
+  background-color: var(--main-color-light);
+  border-top-right-radius: 100px;
+  border-bottom-right-radius: 100px;
+  flex: 1;
+  height: 100%;
+  padding: 1em;
+  text-align: center;
+  word-spacing: 0.2em;
+}
+
+.transaction__details span {
+  font-weight: bold;
+}
+
+.transaction__book-title {
+  cursor: help;
+  text-decoration: underline;
+  font-weight: bold;
 }

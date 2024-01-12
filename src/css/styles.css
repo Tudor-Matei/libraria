@@ -136,6 +136,23 @@ nav #cart {
   width: 40px;
   height: 40px;
   padding: 7px;
+  position: relative;
+}
+
+.cart__added-books-indicator {
+  position: absolute;
+  bottom: -10px;
+  right: -10px;
+  background-color: var(--invalid-color);
+  padding: 0.2em;
+  border-radius: 50%;
+  text-align: center;
+  width: 25px;
+  height: 25px;
+  border: 2px solid black;
+  color: white;
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
 }
 
 .nav__buttons {
@@ -301,7 +318,15 @@ footer .default-button:hover {
   min-width: 300px;
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
+}
+
+.book__image-container {
+  display: flex;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  padding: 7em;
 }
 
 .book__name {
@@ -325,10 +350,16 @@ footer .default-button:hover {
   cursor: help;
 }
 
+.book__published-at {
+  padding: 0.1em;
+}
 .book__quantity,
 .book__price {
-  display: inline;
+  display: inline-flex;
   padding: 0;
+  margin: 0;
+  align-items: center;
+  column-gap: 10px;
 }
 
 .book__genre-pill {
@@ -364,6 +395,15 @@ img {
 
 .book__price strong {
   font-size: calc(var(--font-medium) - 0.2rem);
+}
+
+.no-books-found {
+  display: grid;
+  place-items: center;
+  background-color: var(--main-color-lighter);
+  padding: 4em;
+  border-radius: 20px;
+  box-shadow: var(--main-shadow);
 }
 
 /* media queries */

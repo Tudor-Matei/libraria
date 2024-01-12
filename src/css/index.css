@@ -51,6 +51,18 @@
   overflow: hidden;
 }
 
+.check-out-shop__no-books {
+  margin: 3em var(--side-distance);
+}
+
+.check-out-shop__no-books > svg {
+  background: url("../assets/clock-solid.svg") center center no-repeat;
+  background-size: contain;
+  width: 100px;
+  height: 100px;
+  border: none;
+}
+
 .check-out-shop > h1,
 .check-out-shop > p {
   padding: 0 var(--side-distance) !important;

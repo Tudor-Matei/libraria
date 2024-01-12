@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import BookListing from "../../components/BookListing";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
+import NoBooks from "../../components/NoBooks";
 import "../../css/index.css";
 import useRedirectOnAuth from "../../hooks/useRedirectOnAuth";
 import BookDataType from "../../utils/BookDataType";
@@ -24,7 +25,6 @@ export default function Home() {
     })
       .then((response) => response.json())
       .then((bookDataResponse: { error: string | null; data: BookDataType[] }) => {
-        console.log(bookDataResponse);
         if (bookDataResponse.error !== null) {
           alert(bookDataResponse.error);
           return;
@@ -40,7 +40,6 @@ export default function Home() {
     fetch("http://localhost/libraria/php/get-stats.php")
       .then((response) => response.json())
       .then((statsDataResponse: { error: string | null; data: StatsDataType }) => {
-        console.log(statsDataResponse);
         if (statsDataResponse.error !== null) {
           alert(statsDataResponse.error);
           return;
@@ -79,8 +78,10 @@ export default function Home() {
 
       <section className="check-out-shop">
         <h1>Check out some of the books we have</h1>
-        {bookData.length === 0 ? (
-          <p>Please come back later. New books are going to be added.</p>
+        {bookData.length !== 0 ? (
+          <NoBooks className="check-out-shop__no-books" iconFillColor="var(--main-color-light)">
+            Please come back later. New books are going to be added.
+          </NoBooks>
         ) : (
           <>
             <p>There's plenty to choose from</p>

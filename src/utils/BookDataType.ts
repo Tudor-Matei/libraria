@@ -3,7 +3,7 @@ export default interface BookDataType {
   name: string;
   author: string;
   genre: string;
-  published_at: number;
+  published_at: string;
   pages: number;
   quantity: number;
   price: number;

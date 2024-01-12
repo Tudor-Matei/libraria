@@ -2,6 +2,8 @@ import { useFormik } from "formik";
 import { useContext, useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import BookListing from "../../components/BookListing";
+import Footer from "../../components/Footer";
+import NoBooks from "../../components/NoBooks";
 import SignedInNavbar from "../../components/SignedInNavbar";
 import "../../css/shop.css";
 import BookDataType from "../../utils/BookDataType";
@@ -19,7 +21,6 @@ export default function Shop() {
     data: boolean;
     bookData: BookDataType[];
   };
-
   useEffect(() => {
     if (!data) {
       location.pathname = "/signin";
@@ -40,8 +41,9 @@ export default function Shop() {
       }
 
       setUserData(JSON.parse(savedData));
-      setBookData(receivedBookData);
     }
+
+    setBookData(receivedBookData);
   }, []);
 
   const formik = useFormik({
@@ -56,7 +58,6 @@ export default function Shop() {
       })
         .then((response) => response.json())
         .then((bookDataResponse: { error: string | null; data: BookDataType[] }) => {
-          console.log(bookDataResponse);
           if (bookDataResponse.error !== null) {
             alert(bookDataResponse.error);
             return;
@@ -92,12 +93,13 @@ export default function Shop() {
             {error !== null ? (
               <h1>error</h1>
             ) : bookData.length === 0 ? (
-              <h1>No books found.</h1>
+              <NoBooks iconFillColor="var(--main-color-light)">No books have been found.</NoBooks>
             ) : (
               bookData.map((book, i) => <BookListing key={`book-${i}`} className="results__book" {...book} />)
             )}
           </section>
         </div>
+        <Footer />
       </>
     )
   );
