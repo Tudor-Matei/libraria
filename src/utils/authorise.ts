@@ -1,7 +1,6 @@
 import AuthorisationResponse from "./AuthorisationResponse";
 
 export default function authorise(): Promise<AuthorisationResponse> {
-  console.log("authorise called");
   return fetch("http://localhost/libraria/php/auth.php", {
     method: "POST",
     credentials: "include",

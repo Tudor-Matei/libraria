@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { useLoaderData } from "react-router-dom";
 import BookListing from "../../components/BookListing";
 import Footer from "../../components/Footer";
 import SignedInNavbar from "../../components/SignedInNavbar";
@@ -6,6 +7,7 @@ import "../../css/profile.css";
 import useGetDataFromLocalStorage from "../../hooks/useGetDataFromLocalStorage";
 import useRedirectOnAuth from "../../hooks/useRedirectOnAuth";
 import { CartContext } from "../../utils/CartContext";
+import { IProfileData } from "../../utils/IProfileData";
 import { UserDataContext } from "../../utils/UserDataContext";
 import ProfileStat from "./ProfileStat";
 import Transaction from "./Transaction";
@@ -16,7 +18,11 @@ export default function Profile() {
   useGetDataFromLocalStorage(userData, setUserData);
   const isNotLoggedIn = useRedirectOnAuth("/signin", false);
 
-  return isNotLoggedIn ? null : (
+  const { profileData }: { profileData: IProfileData | null } = useLoaderData() as { profileData: IProfileData | null };
+
+  return isNotLoggedIn ||
+    profileData === null ||
+    Object.values(profileData.userStats).find((stat) => stat === undefined) ? null : (
     <>
       <SignedInNavbar />
       <section className="user-profile-welcome-band">
@@ -44,16 +50,27 @@ export default function Profile() {
         <h1>Here are some stats about you...</h1>
 
         <div className="profile-stats__stat-container">
-          <ProfileStat iconName="clock-solid" heading="0" paragraph="books bought this month" />
-          <ProfileStat iconName="book-solid" heading="5" paragraph="books bought in total" />
+          <ProfileStat
+            iconName="clock-solid"
+            heading={(profileData.userStats.books_bought_this_month || 0).toString()}
+            paragraph={`book${profileData.userStats.books_bought_this_month !== 1 ? "s" : ""} bought this month`}
+          />
+          <ProfileStat
+            iconName="book-solid"
+            heading={(profileData.userStats.books_bought_in_total || 0).toString()}
+            paragraph={`book${profileData.userStats.books_bought_in_total !== 1 ? "s" : ""} bought in total`}
+          />
           <ProfileStat
             iconName="money-bill-solid"
+            // TODO: add here the heading profileData.userStats.most_expensive_book_bought.title
             heading="The Vampire Diaries"
-            paragraph="was the most expensive book you've bought - 123 lei"
+            paragraph={`was the most expensive book you've bought - ${
+              profileData.userStats.most_expensive_book_bought || 0
+            } lei`}
           />
           <ProfileStat
             iconName="money-bill-trend-up-solid"
-            heading="150 lei"
+            heading={`${profileData.userStats.total_money_spent_books || 0} lei`}
             paragraph="is the total amount you've spent on books"
           />
         </div>
@@ -63,34 +80,16 @@ export default function Profile() {
         <h1>And here are all your previous purchases...</h1>
 
         <div className="transaction-list-container__transaction-list">
-          <Transaction
-            id="917342"
-            isbn="979-1234567890"
-            title="The Vampire Diaries - The fury and the dark reunion"
-            price={129.99}
-            date="2024-01-24"
-          />
-          <Transaction
-            id="917342"
-            isbn="979-1234567890"
-            title="The Vampire Diaries - The fury and the dark reunion"
-            price={129.99}
-            date="2024-01-24"
-          />
-          <Transaction
-            id="917342"
-            isbn="979-1234567890"
-            title="The Vampire Diaries - The fury and the dark reunion"
-            price={129.99}
-            date="2024-01-24"
-          />
-          <Transaction
-            id="917342"
-            isbn="979-1234567890"
-            title="The Vampire Diaries - The fury and the dark reunion"
-            price={129.99}
-            date="2024-01-24"
-          />
+          {profileData.userTransactions.map(({ id, name, date, price }, i) => (
+            <Transaction
+              key={`transaction-${i}`}
+              id={id.toString()}
+              isbn="979-1234567890"
+              title={name}
+              price={price}
+              date={date}
+            />
+          ))}
         </div>
       </section>
       <Footer />

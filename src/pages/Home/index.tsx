@@ -6,13 +6,13 @@ import Navbar from "../../components/Navbar";
 import NoBooks from "../../components/NoBooks";
 import "../../css/index.css";
 import useRedirectOnAuth from "../../hooks/useRedirectOnAuth";
-import BookDataType from "../../utils/BookDataType";
+import IBookData from "../../utils/IBookData";
 import StatsDataType from "../../utils/StatsDataType";
 import Reviews from "./Reviews";
 
 export default function Home() {
   const isLoggedIn = useRedirectOnAuth("/shop", true);
-  const [bookData, setBookData] = useState<BookDataType[]>([]);
+  const [bookData, setBookData] = useState<IBookData[]>([]);
   const [statsData, setStatsData] = useState<StatsDataType>({ bookCount: 0, genreCount: 0, transactionCount: 0 });
 
   useEffect(() => {
@@ -24,7 +24,7 @@ export default function Home() {
       }),
     })
       .then((response) => response.json())
-      .then((bookDataResponse: { error: string | null; data: BookDataType[] }) => {
+      .then((bookDataResponse: { error: string | null; data: IBookData[] }) => {
         if (bookDataResponse.error !== null) {
           alert(bookDataResponse.error);
           return;

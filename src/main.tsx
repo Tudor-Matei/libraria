@@ -11,6 +11,7 @@ import Signup from "./pages/Signup";
 import { CartContext, ICartContents } from "./utils/CartContext";
 import { IUserData, UserDataContext } from "./utils/UserDataContext";
 import authorise from "./utils/authorise";
+import profileLoader from "./utils/profileLoader";
 import shopLoader from "./utils/shopLoader";
 
 const router = createBrowserRouter([
@@ -19,7 +20,7 @@ const router = createBrowserRouter([
   { path: "signin", loader: authorise, element: <Signin /> },
   { path: "shop", loader: shopLoader, element: <Shop /> },
   { path: "admin", element: <AdminDashboard /> },
-  { path: "profile", loader: authorise, element: <Profile /> },
+  { path: "profile", loader: profileLoader, element: <Profile /> },
 ]);
 
 export function App() {

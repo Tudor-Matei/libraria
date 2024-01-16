@@ -1,10 +1,15 @@
 <?php
-include_once "db/connect.php";
+include_once 'utils/setup.php';
+include_once 'db/connect.php';
+include_once "utils/constants.php";
 
-$user_id = 929167;
+$user_id = trim(filter_var($_POST['user_id'], FILTER_SANITIZE_STRING));
 
-// TODO:
-// (SELECT books.name, MAX(transactions.price) as price FROM transactions, books WHERE transactions.book_isbn = books.isbn AND transactions.user_id = ?) as most_expensive_book_bought,
+if (!isset($user_id)) {
+  http_response_code(400);
+  echo json_encode(["error" => "Bad user id input."]);
+  die();
+}
 
 $user_stats_query = "SELECT
   (SELECT COUNT(*) FROM transactions WHERE user_id = ? AND EXTRACT(MONTH FROM date) = EXTRACT(MONTH FROM CURRENT_DATE)) as books_bought_this_month,

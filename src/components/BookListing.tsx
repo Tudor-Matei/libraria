@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import BookDataType from "../utils/BookDataType";
 import { CartContext } from "../utils/CartContext";
+import IBookData from "../utils/IBookData";
 
-type BookListingParameters = Partial<BookDataType> & {
+type BookListingParameters = Partial<IBookData> & {
   image: string;
   name: string;
   genre: string;
@@ -68,3 +68,11 @@ export default function BookListing({
     </div>
   );
 }
+
+/*
+MAJOUR TODOS:
+
+TODO: query db for profile page
+TODO: add /checkout page
+TODO: add admin capabilities to edit and remove books
+*/

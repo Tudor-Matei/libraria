@@ -1,4 +1,4 @@
-export default interface BookDataType {
+export default interface IBookData {
   isbn: string;
   name: string;
   author: string;

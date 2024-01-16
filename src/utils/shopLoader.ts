@@ -1,18 +1,18 @@
 import AuthorisationResponse from "./AuthorisationResponse";
-import BookDataType from "./BookDataType";
+import IBookData from "./IBookData";
 import authorise from "./authorise";
 
 export default async function shopLoader(): Promise<{
   error: string | null;
   data: boolean;
-  bookData: BookDataType[];
+  bookData: IBookData[];
 }> {
   const authorisationResponse: AuthorisationResponse = await authorise();
   if (authorisationResponse.error !== null)
     return { error: authorisationResponse.error, data: authorisationResponse.data, bookData: [] };
 
   try {
-    const bookDataResponse: { error: string | null; data?: BookDataType[] } = await fetch(
+    const bookDataResponse: { error: string | null; data?: IBookData[] } = await fetch(
       "http://localhost/libraria/php/get-books.php",
       {
         method: "POST",

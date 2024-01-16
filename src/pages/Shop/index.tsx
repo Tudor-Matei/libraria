@@ -6,20 +6,20 @@ import Footer from "../../components/Footer";
 import NoBooks from "../../components/NoBooks";
 import SignedInNavbar from "../../components/SignedInNavbar";
 import "../../css/shop.css";
-import BookDataType from "../../utils/BookDataType";
+import IBookData from "../../utils/IBookData";
 import { UserDataContext } from "../../utils/UserDataContext";
 
 export default function Shop() {
   const { userData, setUserData } = useContext(UserDataContext);
-  const [bookData, setBookData] = useState<BookDataType[]>([]);
+  const [bookData, setBookData] = useState<IBookData[]>([]);
   const {
     error,
     data,
     bookData: receivedBookData,
-  }: { error: string | null; data: boolean; bookData: BookDataType[] } = useLoaderData() as {
+  }: { error: string | null; data: boolean; bookData: IBookData[] } = useLoaderData() as {
     error: string | null;
     data: boolean;
-    bookData: BookDataType[];
+    bookData: IBookData[];
   };
   useEffect(() => {
     if (!data) {
@@ -57,7 +57,7 @@ export default function Shop() {
         }),
       })
         .then((response) => response.json())
-        .then((bookDataResponse: { error: string | null; data: BookDataType[] }) => {
+        .then((bookDataResponse: { error: string | null; data: IBookData[] }) => {
           if (bookDataResponse.error !== null) {
             alert(bookDataResponse.error);
             return;
