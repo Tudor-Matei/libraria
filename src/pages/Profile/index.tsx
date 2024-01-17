@@ -6,7 +6,6 @@ import NothingFound from "../../components/NothingFound";
 import SignedInNavbar from "../../components/SignedInNavbar";
 import "../../css/profile.css";
 import useGetDataFromLocalStorage from "../../hooks/useGetDataFromLocalStorage";
-import useRedirectOnAuth from "../../hooks/useRedirectOnAuth";
 import { CartContext } from "../../utils/CartContext";
 import { IProfileData } from "../../utils/IProfileData";
 import { UserDataContext } from "../../utils/UserDataContext";
@@ -18,10 +17,14 @@ export default function Profile() {
   const { userData, setUserData } = useContext(UserDataContext);
   const { cartContents } = useContext(CartContext);
   useGetDataFromLocalStorage(userData, setUserData);
-  const isNotLoggedIn = useRedirectOnAuth("/signin", false);
 
-  const { error, profileData }: { error: string | null; profileData: IProfileData | null } = useLoaderData() as {
+  const {
+    error,
+    data: isLoggedIn,
+    profileData,
+  }: { error: string | null; data: boolean; profileData: IProfileData | null } = useLoaderData() as {
     error: string | null;
+    data: boolean;
     profileData: IProfileData | null;
   };
 
@@ -29,7 +32,10 @@ export default function Profile() {
     if (error !== null) {
       alert(error);
       location.pathname = "/shop";
+      return;
     }
+
+    if (!isLoggedIn) location.pathname = "/signin";
   }, []);
 
   const groupedDuplicateBooksWithQuantity: ICollapsedContents[] = useMemo(
@@ -37,7 +43,7 @@ export default function Profile() {
     [cartContents]
   );
 
-  return isNotLoggedIn || profileData === null ? null : (
+  return profileData === null ? null : (
     <>
       <SignedInNavbar />
       <section className="user-profile-welcome-band">

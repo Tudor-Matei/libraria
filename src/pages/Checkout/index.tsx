@@ -72,7 +72,7 @@ export default function Checkout() {
 
           alert("Order placed successfully.");
           setCartContents([]);
-          location.pathname = "/profile";
+          location.pathname = "/shop";
         })
         .catch((error) => {
           alert("The order couldn't be placed because an internal server error has occurred.");

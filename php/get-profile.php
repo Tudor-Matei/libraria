@@ -12,9 +12,9 @@ if (!isset($user_id)) {
 }
 
 $user_stats_query = "SELECT
-  (SELECT COUNT(*) FROM transactions WHERE user_id = ? AND EXTRACT(MONTH FROM date) = EXTRACT(MONTH FROM CURRENT_DATE)) as books_bought_this_month,
-  (SELECT COUNT(*) FROM transactions WHERE user_id = ?) as books_bought_in_total,
-  (SELECT ROUND(SUM(price), 2) FROM transactions WHERE user_id = ?) as total_money_spent_books
+  (SELECT SUM(quantity) FROM transactions WHERE user_id = ? AND EXTRACT(MONTH FROM date) = EXTRACT(MONTH FROM CURRENT_DATE)) as books_bought_this_month,
+  (SELECT SUM(quantity) FROM transactions WHERE user_id = ?) as books_bought_in_total,
+  (SELECT ROUND(SUM(price) * quantity, 2) FROM transactions WHERE user_id = ?) as total_money_spent_books
 from DUAL;";
 
 $user_stats_most_expensive_book_query = "SELECT 
@@ -44,9 +44,8 @@ if (sizeof($user_transactions) === 0)
   $user_transactions = null;
 
 $user_stats_most_expensive_book = mysqli_fetch_assoc($user_stats_most_expensive_book_result);
-if (is_null($user_stats_most_expensive_book["name"]) || is_null($user_stats_most_expensive_book["price"]))
+if (is_null($user_stats_most_expensive_book) || is_null($user_stats_most_expensive_book["name"]) || is_null($user_stats_most_expensive_book["price"]))
   $user_stats_most_expensive_book = null;
-
 
 $user_stats_result_object = mysqli_fetch_assoc($user_stats_result);
 if (

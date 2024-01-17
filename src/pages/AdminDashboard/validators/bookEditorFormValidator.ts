@@ -13,13 +13,11 @@ export default function bookEditorFormValidator(values: BookEditorFormStateType)
   } = {};
 
   const { target_isbn, pages, quantity, price } = values;
-  console.log(values);
 
   if (target_isbn.trim().length !== 14 || !/(978|979)-[0-9]{10}/.test(target_isbn.trim()))
     errors.target_isbn = "The format of an ISBN is (978/979)-(10 digits).";
 
   if (pages.trim() !== "") {
-    console.log(pages);
     const parsedPages: number = parseInt(pages);
     if (isNaN(parsedPages)) errors.pages = "The pages must be a valid number.";
     if (parsedPages < 0) errors.pages = "The page count must be positive for obvious reasons.";

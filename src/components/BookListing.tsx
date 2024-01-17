@@ -38,7 +38,7 @@ export default function BookListing({
           </p>
         )}
         <p className="book__published-at">
-          {published_at !== undefined && published_at !== "0000-00-00" ? `published at: ${published_at}` : ""}
+          {published_at && published_at !== "0000-00-00" ? `published at: ${published_at}` : ""}
         </p>
         <div className="book__genre-pill">{genre}</div>
         <div className="book__quantity-price-container">

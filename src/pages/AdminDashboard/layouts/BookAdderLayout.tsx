@@ -47,7 +47,6 @@ export default function BookAdderLayout({
           if (jsonResponse.error !== null && jsonResponse.data === undefined) {
             alert(jsonResponse.error);
             formik.setSubmitting(false);
-            if (response.status === 401) location.reload();
             return;
           }
 

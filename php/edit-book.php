@@ -66,45 +66,47 @@ if (!is_valid_isbn($target_isbn)) {
 
 $relative_image_file_path = "src/assets/cdn/$target_isbn.jpg";
 
-$update_book_query = "UPDATE books ";
+$update_book_query = "UPDATE books SET ";
 $parameters = [];
 
 if (!empty($name)) {
-  $update_book_query .= "SET name = ? ";
+  $update_book_query .= "name = ?, ";
   array_push($parameters, $name);
 }
 
 if (!empty($author)) {
-  $update_book_query .= "SET author = ? ";
+  $update_book_query .= "author = ?, ";
   array_push($parameters, $author);
 }
 
 if (!empty($genre)) {
-  $update_book_query .= "SET genre = ? ";
+  $update_book_query .= "genre = ?, ";
   array_push($parameters, $genre);
 }
 
 if (!empty($published_at)) {
-  $update_book_query .= "SET published_at = ? ";
+  $update_book_query .= "published_at = ?, ";
   array_push($parameters, $published_at);
 }
 
 if (!empty($pages) && intval($pages) != 0 || $pages == "0") {
-  $update_book_query .= "SET pages = ? ";
+  $update_book_query .= "pages = ?, ";
   array_push($parameters, $pages);
 }
 
 if (!empty($quantity) && intval($quantity) != 0 || $quantity == "0") {
-  $update_book_query .= "SET quantity = ? ";
+  $update_book_query .= "quantity = ?, ";
   array_push($parameters, $quantity);
 }
 
 if (!empty($price) && floatval($price) != 0 || $price == "0") {
-  $update_book_query .= "SET pages = ? ";
+  $update_book_query .= "pages = ?, ";
   array_push($parameters, $price);
 }
 
-$update_book_query .= "WHERE isbn = ?";
+// Remove last comma
+$update_book_query = substr($update_book_query, 0, strlen($update_book_query) - 2);
+$update_book_query .= " WHERE isbn = ?";
 array_push($parameters, $target_isbn);
 
 try {

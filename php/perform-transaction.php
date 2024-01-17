@@ -78,7 +78,7 @@ try {
 
 }
 
-$transaction_query = "INSERT INTO transactions (id, book_isbn, user_id, price, quantity, date) VALUES ";
+$transaction_query = "INSERT INTO transactions (id, book_isbn, user_id, price, quantity, date, location) VALUES ";
 for ($i = 0; $i < sizeof($books); $i++) {
   $book = $books[$i];
 
@@ -94,8 +94,10 @@ for ($i = 0; $i < sizeof($books); $i++) {
     die();
   }
 
+  $location = "{$country}, {$city}: str. {$street} nr. {$street_number}";
+
   $current_book_values =
-    "('{$this_transaction_id}', '{$book["isbn"]}', '{$user_id}', {$book["price"]}, {$book["quantity"]}, '{$this_transaction_date}')"
+    "('{$this_transaction_id}', '{$book["isbn"]}', '{$user_id}', {$book["price"]}, {$book["quantity"]}, '{$this_transaction_date}', '{$location}')"
     . ($i !== sizeof($books) - 1 ? ", " : "");
 
   $transaction_query .= $current_book_values;
