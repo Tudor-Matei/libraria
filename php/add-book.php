@@ -6,6 +6,7 @@ include_once 'db/connect.php';
 include_once 'utils/clear_cookie.php';
 include_once "utils/Key.php";
 include_once "db/UserKeys.php";
+include_once "utils/is_valid_isbn.php";
 
 
 if (!isset($_COOKIE['admin_token']) || !UserKeys::exists($_COOKIE['admin_token'], $connection)) {
@@ -59,7 +60,9 @@ if (
   die();
 }
 
-if (!preg_match("/(978|979)-[0-9]{10}/", $isbn)) {
+
+
+if (!is_valid_isbn($isbn)) {
   http_response_code(400);
   echo json_encode(["error" => "ISBN format is invalid."]);
   die();

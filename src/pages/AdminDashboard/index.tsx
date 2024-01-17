@@ -1,9 +1,11 @@
 import { useState } from "react";
 import "../../css/admin.css";
 import { AdminPanelLayoutEnum } from "../../utils/AdminPanelLayoutEnum";
-import ActionsLayout from "./ActionsLayout";
-import BookAdderLayout from "./BookAdderLayout";
 import LogInPage from "./LogInPage";
+import ActionsLayout from "./layouts/ActionsLayout";
+import BookAdderLayout from "./layouts/BookAdderLayout";
+import BookEditorLayout from "./layouts/BookEditorLayout";
+import BookRemoverLayout from "./layouts/BookRemoverLayout";
 
 export default function AdminDashboard() {
   const [isAuthorised, setAuthorised] = useState(false);
@@ -20,13 +22,12 @@ export default function AdminDashboard() {
       <div className="admin-panel">
         {currentLayout === AdminPanelLayoutEnum.DEFAULT ? (
           <ActionsLayout setCurrentLayout={setCurrentLayout} />
+        ) : currentLayout === AdminPanelLayoutEnum.ADD_BOOK ? (
+          <BookAdderLayout setCurrentLayout={setCurrentLayout} />
+        ) : currentLayout === AdminPanelLayoutEnum.EDIT_BOOK ? (
+          <BookEditorLayout setCurrentLayout={setCurrentLayout} />
         ) : (
-          <>
-            <button className="back-button" onClick={() => setCurrentLayout(AdminPanelLayoutEnum.DEFAULT)}>
-              <img src="src/assets/arrow-left.svg" alt="Go Back" />
-            </button>
-            {currentLayout === AdminPanelLayoutEnum.ADD_BOOK ? <BookAdderLayout /> : null}
-          </>
+          <BookRemoverLayout setCurrentLayout={setCurrentLayout} />
         )}
       </div>
     </>

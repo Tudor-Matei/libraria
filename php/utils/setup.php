@@ -10,4 +10,4 @@ header("Access-Control-Allow-Credentials: true");
 header('Content-Type: "application/json"');
 
 // sending JSON does not work as expected with $_POST.
-$_POST = json_decode(file_get_contents('php://input'), true);
+$_POST = json_decode(file_get_contents('php://input'), associative: true);

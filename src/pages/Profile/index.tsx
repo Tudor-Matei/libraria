@@ -104,9 +104,18 @@ export default function Profile() {
         <h1>And here are all your previous purchases...</h1>
         {profileData.userTransactions?.length ? (
           <div className="transaction-list-container__transaction-list">
-            {profileData.userTransactions?.map(({ id, name, date, price }, i) => (
-              <Transaction key={`transaction-${i}`} id={id.toString()} name={name} price={price} date={date} />
-            ))}
+            {profileData.userTransactions
+              ?.sort((a, b) => (a.date < b.date ? 1 : -1))
+              .map(({ id, name, date, price, quantity }, i) => (
+                <Transaction
+                  key={`transaction-${i}`}
+                  id={id.toString()}
+                  name={name}
+                  price={price}
+                  quantity={quantity}
+                  date={date}
+                />
+              ))}
           </div>
         ) : (
           <NothingFound iconFillColor="var(--main-color)">No transactions performed yet.</NothingFound>

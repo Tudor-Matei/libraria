@@ -1,4 +1,4 @@
-import BookAdderFormStateType from "./BookAdderFormStateType";
+import BookAdderFormStateType from "../types/BookAdderFormStateType";
 
 export default function bookAdderFormValidator({
   isbn,

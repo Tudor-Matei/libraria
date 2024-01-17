@@ -7,7 +7,7 @@ import SignedInNavbar from "../../components/SignedInNavbar";
 import "../../css/checkout.css";
 import useGetDataFromLocalStorage from "../../hooks/useGetDataFromLocalStorage";
 import useRedirectOnAuth from "../../hooks/useRedirectOnAuth";
-import { CartContext } from "../../utils/CartContext";
+import { CartContext, ICartContents } from "../../utils/CartContext";
 import { UserDataContext } from "../../utils/UserDataContext";
 import checkIfFormIsValid from "../../utils/isFormValid";
 import { ICollapsedContents, replaceCartDuplicatesWithQuantity } from "../../utils/replaceCartDuplicatesWithQuantity";
@@ -40,7 +40,11 @@ export default function Checkout() {
 
       fetch("http://localhost/libraria/php/perform-transaction.php", {
         method: "POST",
-        body: JSON.stringify(values),
+        body: JSON.stringify({
+          ...values,
+          user_id: userData?.user_id,
+          books: JSON.stringify(groupedDuplicateBooksWithQuantity),
+        }),
         credentials: "include",
       })
         .then(async (response) => {
@@ -51,6 +55,7 @@ export default function Checkout() {
             alert("The order could not be placed successfully due to an internal server error.");
             formik.setSubmitting(false);
             console.error(error, response.body);
+            return;
           }
 
           if (jsonResponse.error !== null) {
@@ -67,7 +72,7 @@ export default function Checkout() {
 
           alert("Order placed successfully.");
           setCartContents([]);
-          location.pathname = "/shop";
+          location.pathname = "/profile";
         })
         .catch((error) => {
           alert("The order couldn't be placed because an internal server error has occurred.");
@@ -179,10 +184,9 @@ export default function Checkout() {
               <p>
                 Total:{" "}
                 <strong>
-                  {groupedDuplicateBooksWithQuantity.reduce(
-                    (partial, { price, quantity }) => partial + price * quantity,
-                    0
-                  )}{" "}
+                  {groupedDuplicateBooksWithQuantity
+                    .reduce((partial, { price, quantity }) => partial + price * quantity, 0)
+                    .toFixed(2)}{" "}
                   lei
                 </strong>
               </p>
@@ -194,16 +198,30 @@ export default function Checkout() {
         </div>
         <div className="checkout__books">
           {groupedDuplicateBooksWithQuantity.length > 0 ? (
-            groupedDuplicateBooksWithQuantity.map(({ name, image, genre, price, quantity }, i) => (
-              <BookListing
-                key={`book-listing-${i}`}
-                name={name + ` (${quantity})`}
-                className="checkout-books__book"
-                image={image}
-                genre={genre}
-                price={price}
-                showAddToCartButton={false}
-              />
+            groupedDuplicateBooksWithQuantity.map(({ name, isbn, image, genre, price, quantity }, i) => (
+              <div className="checkout-books__book-container">
+                <BookListing
+                  key={`book-listing-${i}`}
+                  name={name + ` (${quantity})`}
+                  image={image}
+                  genre={genre}
+                  price={price}
+                  showAddToCartButton={false}
+                />
+                <button
+                  className="checkout-books__book-remove-button"
+                  onClick={() => {
+                    const removedBook: ICartContents | undefined = cartContents.find(
+                      (currentBook) => currentBook.isbn === isbn
+                    );
+                    if (removedBook === undefined) return;
+
+                    setCartContents(cartContents.filter((currentBook) => currentBook !== removedBook));
+                  }}
+                >
+                  Remove
+                </button>
+              </div>
             ))
           ) : (
             <NothingFound iconFillColor="var(--main-color)">There's nothing in your cart.</NothingFound>

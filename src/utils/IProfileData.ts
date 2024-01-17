@@ -8,6 +8,7 @@ export interface IUserTransaction {
   name: string;
   price: number;
   date: string;
+  quantity: number;
 }
 
 export interface IUserStats {

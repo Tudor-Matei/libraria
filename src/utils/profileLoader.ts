@@ -41,7 +41,6 @@ export default async function profileLoader(): Promise<{
         method: "POST",
         body: JSON.stringify({
           user_id: parseInt(user_id),
-          // user_id: 929067,
         }),
       }
     ).then((response) => response.json());

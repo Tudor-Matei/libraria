@@ -18,12 +18,12 @@ $user_stats_query = "SELECT
 from DUAL;";
 
 $user_stats_most_expensive_book_query = "SELECT 
-  books.name as title, 
+  books.name as name, 
   MAX(transactions.price) as price 
   FROM transactions, books WHERE transactions.book_isbn = books.isbn AND user_id = ? LIMIT 1;";
 
 $user_transactions_query = "SELECT 
-  transactions.id, books.name, books.price, transactions.date 
+  transactions.id, books.name, books.price, transactions.quantity, transactions.date 
   FROM transactions, books WHERE transactions.book_isbn = books.isbn AND transactions.user_id = ?;";
 
 if (
@@ -45,7 +45,7 @@ if (sizeof($user_transactions) === 0)
   $user_transactions = null;
 
 $user_stats_most_expensive_book = mysqli_fetch_assoc($user_stats_most_expensive_book_result);
-if (is_null($user_stats_most_expensive_book["title"]) || is_null($user_stats_most_expensive_book["price"]))
+if (is_null($user_stats_most_expensive_book["name"]) || is_null($user_stats_most_expensive_book["price"]))
   $user_stats_most_expensive_book = null;
 
 

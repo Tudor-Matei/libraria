@@ -7,6 +7,7 @@ export const CartContext = createContext({
 } as ICartContext);
 
 export interface ICartContents {
+  isbn: string;
   image: string;
   name: string;
   genre: string;

@@ -7,13 +7,13 @@ export function replaceCartDuplicatesWithQuantity(cartContents: ICartContents[])
   const collapsedDuplicates: ICollapsedContents[] = [];
 
   for (const book of cartContents) {
-    const currentBookPosition: number | undefined = seenBookISBNs.get(book.name);
+    const currentBookPosition: number | undefined = seenBookISBNs.get(book.isbn);
 
     if (currentBookPosition !== undefined) collapsedDuplicates[currentBookPosition].quantity++;
     else {
       const currentCollapsedBook: ICollapsedContents = { ...book, quantity: 1 };
       collapsedDuplicates.push(currentCollapsedBook);
-      seenBookISBNs.set(currentCollapsedBook.name, collapsedDuplicates.length - 1);
+      seenBookISBNs.set(currentCollapsedBook.isbn, collapsedDuplicates.length - 1);
     }
   }
 

@@ -1,4 +1,4 @@
-import { AdminPanelLayoutEnum } from "../../utils/AdminPanelLayoutEnum";
+import { AdminPanelLayoutEnum } from "../../../utils/AdminPanelLayoutEnum";
 
 export default function ActionsLayout({
   setCurrentLayout,

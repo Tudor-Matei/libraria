@@ -93,7 +93,9 @@ export default function Shop() {
             {error !== null ? (
               <h1>error</h1>
             ) : bookData.length === 0 ? (
-              <NothingFound iconFillColor="var(--main-color-light)">No books have been found.</NothingFound>
+              <NothingFound iconFillColor="var(--main-color-light)" className="results__no-book-found">
+                No books have been found.
+              </NothingFound>
             ) : (
               bookData.map((book, i) => <BookListing key={`book-${i}`} className="results__book" {...book} />)
             )}

@@ -47,3 +47,8 @@
   max-width: 300px;
   height: 300px;
 }
+
+.results__no-book-found > svg {
+  width: 100px;
+  height: 100px;
+}

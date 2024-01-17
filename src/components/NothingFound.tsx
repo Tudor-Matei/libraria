@@ -10,7 +10,7 @@ export default function NothingFound({
   className?: string;
 }) {
   return (
-    <div className={"no-books-found " + className || ""}>
+    <div className={"nothing-found " + (className || "")}>
       <svg xmlns="http://www.w3.org/2000/svg" height="16" width="16" viewBox="0 0 512 512">
         <path
           fill={iconFillColor}

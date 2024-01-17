@@ -14,6 +14,7 @@ type BookListingParameters = Partial<IBookData> & {
 export default function BookListing({
   className,
   name,
+  isbn,
   author,
   genre,
   quantity,
@@ -25,7 +26,7 @@ export default function BookListing({
   const { setCartContents } = useContext(CartContext);
 
   return (
-    <div className={`book ${className || ""}`}>
+    <div className={`book ${className || ""} ${quantity === 0 ? "book--disabled" : ""}`}>
       <div className="book__image-container" style={{ backgroundImage: `url("${image}")` }}></div>
       <div>
         <h3 title={name} className="book__name">
@@ -45,7 +46,7 @@ export default function BookListing({
                 <strong style={quantity < 10 ? { color: "var(--invalid-color)", fontSize: "var(--font-medium)" } : {}}>
                   {quantity}
                 </strong>{" "}
-                books in stock
+                book{quantity !== 1 ? "s" : ""} in stock
               </p>
               <p className="book__quantity-price-separator">&#8231;</p>
             </>
@@ -56,9 +57,14 @@ export default function BookListing({
         </div>
         {showAddToCartButton && (
           <button
-            onClick={() =>
-              setCartContents((previousCartContents) => [...previousCartContents, { image, name, price, genre }])
-            }
+            onClick={() => {
+              if (quantity !== undefined && quantity <= 0) return;
+
+              setCartContents((previousCartContents) => [
+                ...previousCartContents,
+                { isbn: isbn || "", image, name, price, genre },
+              ]);
+            }}
             className="primary-button book__add-to-cart"
           >
             Add to cart
@@ -68,10 +74,3 @@ export default function BookListing({
     </div>
   );
 }
-
-/*
-MAJOUR TODOS:
-
-TODO: add /checkout page
-TODO: add admin capabilities to edit and remove books
-*/
