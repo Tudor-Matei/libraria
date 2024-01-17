@@ -32,9 +32,11 @@ export default function BookListing({
         <h3 title={name} className="book__name">
           {name}
         </h3>
-        <p title={author || "unknown"} className="book__author">
-          by: <i>{author || "unknown"}</i>
-        </p>
+        {author && (
+          <p title={author} className="book__author">
+            by: <i>{author}</i>
+          </p>
+        )}
         <p className="book__published-at">
           {published_at !== undefined && published_at !== "0000-00-00" ? `published at: ${published_at}` : ""}
         </p>

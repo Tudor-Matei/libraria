@@ -19,7 +19,7 @@ export default function Transaction({
       <div className="transaction__details">
         <p>
           You've bought <span className="transaction__book-title">{name + ` (${quantity})`}</span> for{" "}
-          <span>{price}</span> lei on <span>{date}</span>
+          <span>{price * quantity}</span> lei on <span>{date}</span>
         </p>
       </div>
     </div>

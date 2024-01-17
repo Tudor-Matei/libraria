@@ -18,9 +18,8 @@ $user_stats_query = "SELECT
 from DUAL;";
 
 $user_stats_most_expensive_book_query = "SELECT 
-  books.name as name, 
-  MAX(transactions.price) as price 
-  FROM transactions, books WHERE transactions.book_isbn = books.isbn AND user_id = ? LIMIT 1;";
+books.name, books.price FROM books, transactions 
+WHERE transactions.book_isbn = books.isbn AND user_id = ? AND books.price = (SELECT MAX(books.price) FROM books);";
 
 $user_transactions_query = "SELECT 
   transactions.id, books.name, books.price, transactions.quantity, transactions.date 

@@ -105,7 +105,7 @@ export default function Profile() {
         {profileData.userTransactions?.length ? (
           <div className="transaction-list-container__transaction-list">
             {profileData.userTransactions
-              ?.sort((a, b) => (a.date < b.date ? 1 : -1))
+              .sort((a, b) => (a.date < b.date ? 1 : -1))
               .map(({ id, name, date, price, quantity }, i) => (
                 <Transaction
                   key={`transaction-${i}`}
