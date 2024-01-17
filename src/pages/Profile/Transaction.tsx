@@ -1,13 +1,11 @@
 export default function Transaction({
   id,
-  isbn,
-  title,
+  name,
   price,
   date,
 }: {
   id: string;
-  isbn: string;
-  title: string;
+  name: string;
   price: number;
   date: string;
 }) {
@@ -18,11 +16,8 @@ export default function Transaction({
       </div>
       <div className="transaction__details">
         <p>
-          You've bought{" "}
-          <span className="transaction__book-title" title={isbn}>
-            {title}
-          </span>{" "}
-          for <span>{price}</span> lei on <span>{date}</span>
+          You've bought <span className="transaction__book-title">{name}</span> for <span>{price}</span> lei on{" "}
+          <span>{date}</span>
         </p>
       </div>
     </div>

@@ -4,6 +4,10 @@
   padding: 1em var(--side-distance);
 }
 
+.cart-contents__no-books {
+  width: 100%;
+}
+
 .cart-contents__book-container {
   display: flex;
   flex-flow: row wrap;
@@ -156,7 +160,11 @@
 }
 
 .transaction__book-title {
-  cursor: help;
   text-decoration: underline;
   font-weight: bold;
+}
+
+.profile-stats-stat__long-title {
+  cursor: help;
+  text-decoration: underline;
 }

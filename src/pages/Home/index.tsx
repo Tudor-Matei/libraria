@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import BookListing from "../../components/BookListing";
 import Footer from "../../components/Footer";
 import Navbar from "../../components/Navbar";
-import NoBooks from "../../components/NoBooks";
+import NothingFound from "../../components/NothingFound";
 import "../../css/index.css";
 import useRedirectOnAuth from "../../hooks/useRedirectOnAuth";
 import IBookData from "../../utils/IBookData";
@@ -78,10 +78,10 @@ export default function Home() {
 
       <section className="check-out-shop">
         <h1>Check out some of the books we have</h1>
-        {bookData.length !== 0 ? (
-          <NoBooks className="check-out-shop__no-books" iconFillColor="var(--main-color-light)">
+        {bookData.length === 0 ? (
+          <NothingFound className="check-out-shop__no-books" iconFillColor="var(--main-color-light)">
             Please come back later. New books are going to be added.
-          </NoBooks>
+          </NothingFound>
         ) : (
           <>
             <p>There's plenty to choose from</p>

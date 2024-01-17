@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from "react";
 import { useLoaderData } from "react-router-dom";
 import BookListing from "../../components/BookListing";
 import Footer from "../../components/Footer";
-import NoBooks from "../../components/NoBooks";
+import NothingFound from "../../components/NothingFound";
 import SignedInNavbar from "../../components/SignedInNavbar";
 import "../../css/shop.css";
 import IBookData from "../../utils/IBookData";
@@ -93,13 +93,13 @@ export default function Shop() {
             {error !== null ? (
               <h1>error</h1>
             ) : bookData.length === 0 ? (
-              <NoBooks iconFillColor="var(--main-color-light)">No books have been found.</NoBooks>
+              <NothingFound iconFillColor="var(--main-color-light)">No books have been found.</NothingFound>
             ) : (
               bookData.map((book, i) => <BookListing key={`book-${i}`} className="results__book" {...book} />)
             )}
           </section>
         </div>
-        <Footer />
+        <Footer className="footer--no-top-margin" />
       </>
     )
   );

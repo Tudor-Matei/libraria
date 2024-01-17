@@ -15,14 +15,33 @@ export default async function profileLoader(): Promise<{
       profileData: null,
     };
 
+  const rawUserDataFromLocalStorage: string | null = localStorage.getItem("data");
+
+  if (rawUserDataFromLocalStorage === null) {
+    return {
+      error: "The user data is missing.",
+      data: authorisationResponse.data,
+      profileData: null,
+    };
+  }
+
+  const { user_id }: { user_id?: string } = JSON.parse(rawUserDataFromLocalStorage);
+  if (user_id === undefined) {
+    return {
+      error: "The user data is malformed.",
+      data: authorisationResponse.data,
+      profileData: null,
+    };
+  }
+
   try {
     const profileDataResponse: { error: string | null; data: IProfileData } = await fetch(
       "http://localhost/libraria/php/get-profile.php",
       {
         method: "POST",
         body: JSON.stringify({
-          // TODO: where do I get user_id from?
-          user_id: 929067,
+          user_id: parseInt(user_id),
+          // user_id: 929067,
         }),
       }
     ).then((response) => response.json());

@@ -406,6 +406,10 @@ img {
   box-shadow: var(--main-shadow);
 }
 
+.footer--no-top-margin {
+  margin-top: 0;
+}
+
 /* media queries */
 
 @media screen and (max-width: 742px) {

@@ -1,7 +1,8 @@
-import { useContext } from "react";
+import { useContext, useEffect, useMemo } from "react";
 import { useLoaderData } from "react-router-dom";
 import BookListing from "../../components/BookListing";
 import Footer from "../../components/Footer";
+import NothingFound from "../../components/NothingFound";
 import SignedInNavbar from "../../components/SignedInNavbar";
 import "../../css/profile.css";
 import useGetDataFromLocalStorage from "../../hooks/useGetDataFromLocalStorage";
@@ -9,6 +10,7 @@ import useRedirectOnAuth from "../../hooks/useRedirectOnAuth";
 import { CartContext } from "../../utils/CartContext";
 import { IProfileData } from "../../utils/IProfileData";
 import { UserDataContext } from "../../utils/UserDataContext";
+import { ICollapsedContents, replaceCartDuplicatesWithQuantity } from "../../utils/replaceCartDuplicatesWithQuantity";
 import ProfileStat from "./ProfileStat";
 import Transaction from "./Transaction";
 
@@ -18,11 +20,24 @@ export default function Profile() {
   useGetDataFromLocalStorage(userData, setUserData);
   const isNotLoggedIn = useRedirectOnAuth("/signin", false);
 
-  const { profileData }: { profileData: IProfileData | null } = useLoaderData() as { profileData: IProfileData | null };
+  const { error, profileData }: { error: string | null; profileData: IProfileData | null } = useLoaderData() as {
+    error: string | null;
+    profileData: IProfileData | null;
+  };
 
-  return isNotLoggedIn ||
-    profileData === null ||
-    Object.values(profileData.userStats).find((stat) => stat === undefined) ? null : (
+  useEffect(() => {
+    if (error !== null) {
+      alert(error);
+      location.pathname = "/shop";
+    }
+  }, []);
+
+  const groupedDuplicateBooksWithQuantity: ICollapsedContents[] = useMemo(
+    () => replaceCartDuplicatesWithQuantity(cartContents),
+    [cartContents]
+  );
+
+  return isNotLoggedIn || profileData === null ? null : (
     <>
       <SignedInNavbar />
       <section className="user-profile-welcome-band">
@@ -32,17 +47,23 @@ export default function Profile() {
       <section className="cart-contents">
         <h1>Here are the books that got to your cart...</h1>
         <div className="cart-contents__book-container">
-          {cartContents.map(({ name, image, price, genre }, i) => (
-            <BookListing
-              key={`book-listing-${i}`}
-              showAddToCartButton={false}
-              className="cart-contents__book"
-              image={image}
-              name={name}
-              genre={genre}
-              price={price}
-            />
-          ))}
+          {groupedDuplicateBooksWithQuantity.length === 0 ? (
+            <NothingFound iconFillColor="var(--main-color)" className="cart-contents__no-books">
+              There are no books in your cart yet.
+            </NothingFound>
+          ) : (
+            groupedDuplicateBooksWithQuantity.map(({ name, image, price, genre, quantity }, i) => (
+              <BookListing
+                key={`book-listing-${i}`}
+                showAddToCartButton={false}
+                className="cart-contents__book"
+                image={image}
+                name={name + ` (${quantity})`}
+                genre={genre}
+                price={price}
+              />
+            ))
+          )}
         </div>
       </section>
 
@@ -52,25 +73,28 @@ export default function Profile() {
         <div className="profile-stats__stat-container">
           <ProfileStat
             iconName="clock-solid"
-            heading={(profileData.userStats.books_bought_this_month || 0).toString()}
-            paragraph={`book${profileData.userStats.books_bought_this_month !== 1 ? "s" : ""} bought this month`}
+            heading={(profileData.userStats?.books_bought_this_month || 0).toString()}
+            paragraph={`book${profileData.userStats?.books_bought_this_month !== 1 ? "s" : ""} bought this month`}
           />
           <ProfileStat
             iconName="book-solid"
-            heading={(profileData.userStats.books_bought_in_total || 0).toString()}
-            paragraph={`book${profileData.userStats.books_bought_in_total !== 1 ? "s" : ""} bought in total`}
+            heading={(profileData.userStats?.books_bought_in_total || 0).toString()}
+            paragraph={`book${profileData.userStats?.books_bought_in_total !== 1 ? "s" : ""} bought in total`}
           />
           <ProfileStat
             iconName="money-bill-solid"
-            // TODO: add here the heading profileData.userStats.most_expensive_book_bought.title
-            heading="The Vampire Diaries"
-            paragraph={`was the most expensive book you've bought - ${
-              profileData.userStats.most_expensive_book_bought || 0
-            } lei`}
+            heading={profileData.userStats?.most_expensive_book_bought?.name || "No book bought"}
+            paragraph={
+              profileData.userStats?.most_expensive_book_bought?.price !== undefined
+                ? `was the most expensive book you've bought - ${
+                    profileData.userStats?.most_expensive_book_bought?.price || -1
+                  } lei`
+                : "buy a book to see this stat"
+            }
           />
           <ProfileStat
             iconName="money-bill-trend-up-solid"
-            heading={`${profileData.userStats.total_money_spent_books || 0} lei`}
+            heading={`${profileData.userStats?.total_money_spent_books || 0} lei`}
             paragraph="is the total amount you've spent on books"
           />
         </div>
@@ -78,19 +102,15 @@ export default function Profile() {
 
       <section className="transaction-list-container">
         <h1>And here are all your previous purchases...</h1>
-
-        <div className="transaction-list-container__transaction-list">
-          {profileData.userTransactions.map(({ id, name, date, price }, i) => (
-            <Transaction
-              key={`transaction-${i}`}
-              id={id.toString()}
-              isbn="979-1234567890"
-              title={name}
-              price={price}
-              date={date}
-            />
-          ))}
-        </div>
+        {profileData.userTransactions?.length ? (
+          <div className="transaction-list-container__transaction-list">
+            {profileData.userTransactions?.map(({ id, name, date, price }, i) => (
+              <Transaction key={`transaction-${i}`} id={id.toString()} name={name} price={price} date={date} />
+            ))}
+          </div>
+        ) : (
+          <NothingFound iconFillColor="var(--main-color)">No transactions performed yet.</NothingFound>
+        )}
       </section>
       <Footer />
     </>

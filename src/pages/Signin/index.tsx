@@ -45,12 +45,6 @@ export default function Signin() {
             return;
           }
 
-          if (jsonResponse.error !== null && jsonResponse.data === undefined) {
-            alert(jsonResponse.error);
-            formik.setSubmitting(false);
-            return;
-          }
-
           localStorage.setItem("data", JSON.stringify(jsonResponse.data));
           setUserData(jsonResponse.data as IUserData);
           location.pathname = "/shop";

@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-export default function NoBooks({
+export default function NothingFound({
   iconFillColor,
   children,
   className,

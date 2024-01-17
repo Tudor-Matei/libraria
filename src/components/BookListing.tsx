@@ -72,7 +72,6 @@ export default function BookListing({
 /*
 MAJOUR TODOS:
 
-TODO: query db for profile page
 TODO: add /checkout page
 TODO: add admin capabilities to edit and remove books
 */

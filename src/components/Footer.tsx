@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 
-export default function Footer() {
+export default function Footer({ className }: { className?: string }) {
   return (
-    <footer>
+    <footer className={className || ""}>
       <div className="footer__main-content">
         <div className="footer__libraria">
           <img src="src/assets/libraria-logo.svg" alt="Libraria logo" />

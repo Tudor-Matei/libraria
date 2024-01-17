@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import "../src/css/styles.css";
 import AdminDashboard from "./pages/AdminDashboard";
+import Checkout from "./pages/Checkout";
 import Home from "./pages/Home";
 import Profile from "./pages/Profile";
 import Shop from "./pages/Shop";
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
   { path: "shop", loader: shopLoader, element: <Shop /> },
   { path: "admin", element: <AdminDashboard /> },
   { path: "profile", loader: profileLoader, element: <Profile /> },
+  { path: "checkout", loader: authorise, element: <Checkout /> },
 ]);
 
 export function App() {
