@@ -23,3 +23,8 @@ Libraria is the online bookstore that makes it easy, and convenient for you to s
 - Bundling the HTML, CSS and JavaScript assets is done with Vite
 - PHP is used as the backend server language. It handles requests, and talks to the database
 - SQL is the language used for manipulating the database
+
+# How to run it 
+- Run <code>npm install</code>
+- For development, run <code>npm run dev</code>
+- For production, run <code>npm run build</code>
