@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { Link } from "react-router-dom";
 import BookListing from "../../components/BookListing";
 import Footer from "../../components/Footer";
@@ -87,9 +89,24 @@ export default function Home() {
             <p>There's plenty to choose from</p>
             <div className="check-out-shop__books">
               <div className="check-out-shop__book-band"></div>
-              {bookData.map((book, i) => (
-                <BookListing key={`book-${i}`} className="check-out-shop__book" {...book} />
-              ))}
+              <Carousel
+                infiniteLoop
+                autoPlay
+                centerMode
+                centerSlidePercentage={30}
+                dynamicHeight={false}
+                showArrows={false}
+                showIndicators={false}
+                showThumbs={false}
+                swipeable={false}
+                showStatus={false}
+                stopOnHover={false}
+                axis="horizontal"
+              >
+                {bookData.map((book, i) => (
+                  <BookListing key={`book-${i}`} className="check-out-shop__book" {...book} />
+                ))}
+              </Carousel>
             </div>
           </>
         )}

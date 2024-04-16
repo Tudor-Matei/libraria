@@ -11,7 +11,7 @@ Libraria is the online bookstore that makes it easy, and convenient for you to s
 - User profile that showing past
   transactions, cart contents, stats and purchases
 - Admin panel for adding,
-  editing and deleting books from the database
+  editing and deleting books from the database accessed by going to "/admin"
 - Performing and logging book transactions
   in the database
 - Searching books dynamically by their name

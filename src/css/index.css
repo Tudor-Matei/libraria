@@ -27,6 +27,11 @@
   padding-right: var(--side-distance);
 }
 
+.carousel.carousel-slider,
+.carousel .slider-wrapper {
+  overflow: visible;
+}
+
 .landing h1 {
   margin-top: 0;
   font-size: var(--font-very-large);
@@ -47,8 +52,8 @@
 }
 
 .check-out-shop {
-  padding: var(--section-gap-space) 0;
-  overflow: hidden;
+  padding-top: var(--section-gap-space);
+  overflow-x: hidden;
 }
 
 .check-out-shop__no-books {
@@ -73,10 +78,17 @@
 }
 
 .check-out-shop__books {
-  padding-top: 3rem;
+  padding: 3rem 0;
   position: relative;
   display: flex;
-  column-gap: 2rem;
+}
+
+.check-out-shop__book {
+  margin: 0 2rem;
+}
+
+.check-out-shop .check-out-shop__book:first-of-type {
+  margin-left: 0;
 }
 
 .check-out-shop__book-band {
